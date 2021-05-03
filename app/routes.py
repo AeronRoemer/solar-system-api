@@ -14,13 +14,13 @@ def view_planets():
         db.session.commit()
         return make_response(f"Your planet {new_planet.name} was created! It's {new_planet.size} big and it's {new_planet.description}.")
     if request.method == "GET":
-        planets = planets.query.all()
+        planets = Planet.query.all()
         planets_response = []
-            for planet in planets:
-                planets_response.append({
-                    "id": planet.id,
-                    "name": planet.name,
-                    "description": planet.description,
-                    "size": planet.size
-                })
+        for planet in planets:
+            planets_response.append({
+                "id": planet.id,
+                "name": planet.name,
+                "description": planet.description,
+                "size": planet.size
+            })
         return jsonify(planets_response)
