@@ -3,6 +3,30 @@ from app.models.planet import Planet
 from flask import request, Blueprint, make_response, jsonify
 
 planets_bp = Blueprint("planets", __name__, url_prefix="/planets")
+
+@planets_bp.route("/<planet_id>", methods=["GET", "PUT", "DELETE"])
+def handle_planets(planet_id):
+    planet = Planet.query.get(planet_id)
+
+    if request.method == "GET":
+        return {
+        "id": planet.id,
+        "name": planet.name,
+        "description": planet.description,
+        "size": planet.size
+    }
+    elif request.method == "PUT":
+        form_data = request.get_json()
+        planet.name = form_data["name"]
+        planet.description =form_data["description"] 
+        planet.size = form_data["size"] 
+        db.session.commit()
+        return make_response(f"planet #{planet.id} successfully updated")
+    elif request.method == "DELETE":
+        db.session.delete(planet)
+        db.session.commit()
+        return make_response(f"planet #{planet.id} successfully deleted")
+
 @planets_bp.route("", methods=["GET", "POST"])
 def view_planets():
     if request.method == "POST":
