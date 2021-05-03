@@ -2,8 +2,9 @@ from app import db
 
 class Planet(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String)
+    name = db.Column(db.String)
     description = db.Column(db.String)
+    size = db.Column(db.String)
 
     def to_string(self):
-        return f'{self.id}: {self.title} Description: {self.description}'
+        return f'{self.id}: {self.name} Description: {self.description} Size: {self.size}'
