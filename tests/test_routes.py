@@ -53,3 +53,15 @@ def test_get_all_planets_with_records(client,two_saved_planets):
     # Assert
     assert response.status_code == 200
     assert len(response_body) == 2
+
+def test_post_one_planet(client):
+    # Act
+    request_body = {
+        "name": "Big Planet",
+        "description": "so large",
+        "size": "5,012,033,200"
+    }
+    response = client.post("/planets", json=request_body)
+
+    # Assert
+    assert response.status_code == 201
