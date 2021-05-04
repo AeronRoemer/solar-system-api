@@ -7,7 +7,8 @@ planets_bp = Blueprint("planets", __name__, url_prefix="/planets")
 @planets_bp.route("/<planet_id>", methods=["GET", "PUT", "DELETE"])
 def handle_planets(planet_id):
     planet = Planet.query.get(planet_id)
-
+    if planet is None:
+        return make_response("", 404)
     if request.method == "GET":
         return {
         "id": planet.id,
