@@ -37,7 +37,7 @@ def view_planets():
             size=request_body['size'])
         db.session.add(new_planet)
         db.session.commit()
-        return make_response(f"Your planet {new_planet.name} was created! It's {new_planet.size} big and it's {new_planet.description}.")
+        return make_response(f"Your planet {new_planet.name} was created! It's {new_planet.size} big and it's {new_planet.description}.", 201)
     if request.method == "GET":
         planets = Planet.query.all()
         planets_response = []
